@@ -48,6 +48,7 @@
 
 
 // 枚举 (Enum)
+// 枚举在 JavaScript 中没有直接的对应
 // enum Direction {
 //     Up,
 //     Down,
