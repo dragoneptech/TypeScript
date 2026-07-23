@@ -1,7 +1,7 @@
 // 基础类型：number、string、boolean、null、undefined、symbol、bigint
 
 
-// number
+// number: 整数和浮点数
 let age: number = 30;
 // console.log(`I am ${age} years old.`); // Output: I am 30 years old.
 let pi: number = 3.14;
@@ -14,7 +14,8 @@ let message: string = "Hello, TypeScript!";
 // console.log(message); // Output: Hello, TypeScript!
 
 
-// template string
+// template string: 用反引号 `（记住不是单引号 '）来定义
+// 允许在字符串中插入变量或表达式，非常适合多行文本和拼接变量
 let varname: string = "Alice";
 let greeting: string = `Hello, ${varname}! Welcome to TypeScript.`;
 // console.log(greeting); // Output: Hello, Alice! Welcome to TypeScript.
