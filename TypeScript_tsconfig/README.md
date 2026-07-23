@@ -34,3 +34,7 @@
 
 # declaration: 生成 xxx.d.ts 声明文件
 - 作用: 给别人使用你的库时提供类型
+
+# TypeScript 编译选项
+
+![alt text](image_ts_compile.png)
