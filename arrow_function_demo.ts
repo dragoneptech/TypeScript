@@ -19,11 +19,14 @@
 
 // 箭头函数语法
 // 多参数
+// const add: (a: number, b: number) => number = (a, b) => a + b;
 // const add = (a: number, b: number): number => a + b;
 // 单参数
 // const square = (x: number): number => x * x;
+// const square: (x: number) => number = x => x * x;
 // 无参数
 // const getRandom = (): number => Math.random();
+// const getRandom: () => number = () => Math.random();
 
 // 概念说明：箭头函数使用 => 语法定义，它不绑定自己的 this，而是继承外层作用域的 this
 
@@ -38,15 +41,19 @@
 
 // 箭头函数：单行函数可以省略大括号和 return
 // const add2 = (a: number, b: number): number => a + b;
+// const add2: (a: number, b: number) => number = (a, b) => a + b;
 
 // 单参数可以省略括号
 // tsc --noImplicitAny false
 // const double = n => n * 2;
-// 采用类型注解，单参不可以省略括号
+// 采用如下类型注解，单参不可以省略括号
 // const double = (n: number): number => n * 2;
+// 采用如下类型注解，单参可以省略括号
+// const double: (n: number) => number = n => n * 2;
 
 // 无参数函数
 // const getRandom = (): number => Math.random();
+// const getRandom: () => number = () => Math.random();
 
 // console.log("add1: " + add1(1, 2));
 // console.log("add2: " + add2(3, 4));
@@ -55,7 +62,7 @@
 
 
 // 语法说明：当只有单个参数时，括号可以省略；但没有参数或多于一个参数时，必须使用括号
-// 如果采用类型注解，括号不能省略
+// 如果采用类型注解，括号可能不能省略
 
 
 // 箭头函数与 this
@@ -67,6 +74,8 @@
 // tsc noImplicitThis false
 // function Person1() {
 //     this.name = "Alice";
+//     console.log(this)  // 输出 Person1 实例
+//     console.log(this.name);  // 输出 "Alice"
 
 //     // 普通函数会创建自己的 this
 //     // 在 setTimeout 回调中，this 指向 window（浏览器）或 undefined（严格模式）
@@ -78,6 +87,8 @@
 // 使用箭头函数
 // function Person2() {
 //     this.name = "Bob";
+//     console.log(this);  // 输出 Person2 实例
+//     console.log(this.name);  // 输出 "Bob"
 
 //     // 箭头函数不创建自己的 this
 //     // 它捕获外层的 this，所以能正确访问到 name
@@ -100,7 +111,7 @@
 
 //     setTimeout(callback: () => void, delay: number): void {
 //         setTimeout(callback, delay);
-//         console.log("普通函数 this: " + this.name);
+//         // console.log("普通函数 this: " + this.name);
 //     };
 
 //     // setTimeout = (callback: () => void, delay: number): void => {
@@ -109,14 +120,22 @@
 //     // };
 // }
 
-// const p1 = new Person1("Alice");
+// const p1 = new Person1("Alice Wang");
+// p1.setTimeout(() => {
+//     // console.log("箭头函数: " + this.name);  // this 指向 window or undefined
+// }, 100)
+
 // p1.setTimeout(() => {
 //     console.log("箭头函数: " + p1.name);
 // }, 100)
 
 // p1.setTimeout(function() {
-//     console.log("普通函数: " + p1.name);
+//     console.log("普通函数: " + this.name);  // this 指向 window or undefined
 // }, 100)
+
+// p1.setTimeout(function() {
+//     console.log("普通函数: " + this.name);
+// }.bind(p1), 100)
 
 // 关键区别：普通函数的 this 在调用时确定，箭头函数的 this 在定义时确定。这是两者最核心的区别
 
@@ -133,7 +152,7 @@
 //     // 使用箭头函数作为类属性
 //     // 每次创建实例时，都会创建一个新的函数
 //     // this 指向实例
-//     increment = () => {
+//     increment: () => void = () => {
 //         this.count++;
 //         console.log("当前计数: " + this.count);
 //     }
@@ -145,7 +164,7 @@
 //     // }
 
 //     // 箭头方法
-//     decrement = () => {
+//     decrement: () => void = () => {
 //         this.count--;
 //         console.log("当前计数: " + this.count);
 //     }
@@ -168,7 +187,7 @@
 // 回调函数中的 this
 // 箭头函数在数组方法（map、filter、reduce 等）的回调中特别有用
 // 它确保回调内部可以正确访问外层的 this
-// 定义处理器对象
+
 // 定义处理器对象
 // var handler = {
 //     // 处理器名称
@@ -224,25 +243,25 @@
 // console.log("乘法: " + multiply(4, 5));
 
 // 接口属性定义箭头函数
-interface Person {
-    name: string;
-    sayHello: () => void;
-}
+// interface Person {
+//     name: string;
+//     sayHello: () => void;
+// }
 
-const person: Person = {
-    name: "Alice",
-    // sayHello: () => {
-    //     console.log("Hello, " + person.name);
-    //     // console.log("Hello, " + this.name);
-    //     // Error: The containing arrow function captures the global value of 'this'
-    //     // console.log("Hello, " + Person.name);
-    //     // Error: 'Person' only refers to a type, but is being used as a value here
-    // }
-    sayHello: function() {
-        console.log("Hello, " + this.name);
-    }
-};
-person.sayHello();
+// const person: Person = {
+//     name: "Alice",
+//     // sayHello: () => {
+//     //     console.log("Hello, " + person.name);
+//     //     // console.log("Hello, " + this.name);
+//     //     // Error: The containing arrow function captures the global value of 'this'
+//     //     // console.log("Hello, " + Person.name);
+//     //     // Error: 'Person' only refers to a type, but is being used as a value here
+//     // }
+//     sayHello: function() {
+//         console.log("Hello, " + this.name);
+//     }
+// };
+// person.sayHello();
 
 // 注意：箭头函数类型的语法是 (params) => returnType，不是传统的 (params): returnType
 // 除非是接口定义箭头函数类型才使用 (params): returnType 语法
