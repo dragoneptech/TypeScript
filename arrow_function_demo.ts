@@ -277,3 +277,22 @@ person.sayHello();
 // 类中使用：箭头属性方法解决传递问题
 // 类型注解：使用 => 语法定义类型
 // 建议：在 TypeScript 开发中，充分利用箭头函数的 this 绑定特性，可以写出更安全、更易维护的代码
+
+
+
+// 箭头函数和普通函数的 this 指向完全不同：
+// 普通函数的 this 是动态的（运行时决定），而箭头函数的 this 是静态的（定义时决定）
+// 可以参考官方的 MDN Web Docs 了解更多底层细节
+// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this
+
+// 普通函数的 this（运行时决定）
+// 谁调用就指向谁：如果通过对象调用（如 obj.fn()），this 指向该对象
+// 默认/独立调用：直接调用（如 fn()）在非严格模式下指向全局对象 window（浏览器），严格模式下为 undefined
+// 构造函数：使用 new 时，this 指向新创建的对象实例
+// 显式绑定：可以通过 call、apply 或 bind 方法改变 this 的指向
+//
+// 箭头函数的 this（定义时决定）
+// 没有自己的 this：它不会创建专属的 this 执行上下文
+// 继承外层作用域：它的 this 继承自外层代码块（即定义这个箭头函数时所在的作用域）的 this
+// 无法被修改：不能通过 call、apply 或 bind 来改变它的 this 指向
+// 不能作构造函数：因为没有自己的 this，所以不能配合 new 使用
