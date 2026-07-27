@@ -10,12 +10,20 @@
 //     console.log(this.name);
 // }, 100);
 // this 指向 window/undefined
+// browser 环境下，this 指向 window 对象, 即 global 对象
+// node.js 环境下，且采用 CommonJS 模块系统时，this 指向 module.exports 或 exports, this 为 {}
+// node.js 环境下，且采用 ES6 模块系统时，this 指向 undefined
+
 
 // 箭头函数
 // setTimeout(() => {
 //     console.log(this.name);
 // }, 100);
 // this 指向定义时的上下文
+// 例如：用 obj.setTimout()，this 指向 obj
+// 直接调用函数时，this 指向全局顶层 this，
+// 即 window（浏览器）
+// 或 global（Node.js CommonJS）或 {} = (modules.exports) （Node.js ES Modules）
 
 // 箭头函数语法
 // 多参数
