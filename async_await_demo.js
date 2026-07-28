@@ -136,27 +136,37 @@
 // handleError();
 // 并行执行
 // 使用 Promise.all 并行执行多个异步操作
-function fetchUser(id) {
-    return Promise.resolve({ id: id, name: `User${id}` });
-}
-async function main() {
-    // 串行执行
-    console.time('串行执行耗时');
-    console.log('开始串行执行');
-    const user1 = await fetchUser(1);
-    const user2 = await fetchUser(2);
-    console.log(`串行执行结果: ${JSON.stringify(user1)}, ${JSON.stringify(user2)}`);
-    console.timeEnd('串行执行耗时');
-    console.log('串行执行结束');
-    console.log('--------------------');
-    // 并行执行
-    console.time('并行执行耗时');
-    console.log('开始并行执行');
-    // const [user3, user4] = await Promise.all([fetchUser(3), fetchUser(4)]);
-    // console.log(`并行执行结果: ${JSON.stringify(user3)}, ${JSON.stringify(user4)}`);
-    const results = await Promise.all([fetchUser(3), fetchUser(4)]);
-    console.log(`并行执行结果: ${JSON.stringify(results[0])}, ${JSON.stringify(results[1])}`);
-    console.timeEnd('并行执行耗时');
-    console.log('并行执行结束');
-}
-main();
+// function fetchUser(id: number): Promise<{id: number, name: string}> {
+//     return Promise.resolve({id: id, name: `User${id}`});
+// }
+// async function main() {
+//     // 串行执行
+//     console.time('串行执行耗时');
+//     console.log('开始串行执行');
+//     const user1 = await fetchUser(1);
+//     const user2 = await fetchUser(2);
+//     console.log(`串行执行结果: ${JSON.stringify(user1)}, ${JSON.stringify(user2)}`);
+//     console.timeEnd('串行执行耗时');
+//     console.log('串行执行结束');
+//     console.log('--------------------');
+//     // 并行执行
+//     console.time('并行执行耗时');
+//     console.log('开始并行执行');
+//     // const [user3, user4] = await Promise.all([fetchUser(3), fetchUser(4)]);
+//     // console.log(`并行执行结果: ${JSON.stringify(user3)}, ${JSON.stringify(user4)}`);
+//     const results = await Promise.all([fetchUser(3), fetchUser(4)]);
+//     console.log(`并行执行结果: ${JSON.stringify(results[0])}, ${JSON.stringify(results[1])}`);
+//     console.timeEnd('并行执行耗时');
+//     console.log('并行执行结束');
+// }
+// main();
+// async/await 相比 Promise 的优势
+// 代码更简洁、更易读
+// 同步代码风格
+// 更好的错误堆栈
+// 易于调试
+// 总结
+// async：声明异步函数
+// await：等待 Promise
+// 错误处理：try/catch
+// 并行：Promise.all
