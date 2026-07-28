@@ -62,3 +62,80 @@
 // console.log(this);  // undefined
 // // console.log(module.exports);  // {}  ESM 模块中没有 module.exports
 // console.log(globalThis === global);  // true
+
+
+// Bound methods in classes
+// class Car {
+//     constructor() {
+//         // Bind sayBye but not sayHi to show the difference
+//         this.sayBye = this.sayBye.bind(this);
+//     }
+
+//     sayHi() {
+//         console.log(`Hello from ${this.name}`);
+//     }
+
+//     sayBye() {
+//         console.log(`Bye from ${this.name}`);
+//     }
+
+//     get name() {
+//         return "Ferrari";
+//     }
+// }
+
+// class Bird {
+//     get name() {
+//         return "Tweety";
+//     }
+// }
+
+// const car = new Car();
+// const bird = new Bird();
+
+// // The value of 'this' in methods depends on their caller
+// car.sayHi(); // Hello from Ferrari
+// bird.sayHi = car.sayHi;
+// bird.sayHi(); // Hello from Tweety
+
+// // For bound methods, 'this' doesn't depend on the caller
+// bird.sayBye = car.sayBye;
+// bird.sayBye(); // Bye from Ferrari
+
+
+// this with a getter or setter
+// function sum() {
+//   return this.a + this.b + this.c;
+// }
+
+// const o = {
+//   a: 1,
+//   b: 2,
+//   c: 3,
+//   get average() {
+//     return (this.a + this.b + this.c) / 3;
+//   },
+// };
+
+// Object.defineProperty(o, "sum", {
+//   get: sum,
+//   enumerable: true,
+//   configurable: true,
+// });
+
+// console.log(o.average, o.sum); // 2 6
+
+
+// this in arrow functions
+
+
+
+
+
+
+
+
+
+
+
+
