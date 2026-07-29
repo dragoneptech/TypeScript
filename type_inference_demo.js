@@ -97,15 +97,32 @@
 // 这使得泛型函数既灵活又保持类型安全
 // 泛型函数：接受任意类型参数，返回同类型值
 // T 会根据传入的参数自动推断
-function identity(arg) {
-    return arg;
-}
-// 传入字符串，T 推断为 string
-var str = identity("hello");
-// 传入数字，T 推断为 number
-var num = identity(42);
-// 传入对象，T 推断为对象类型
-var obj = identity({ name: "TypeScript" });
-console.log("字符串: " + str);
-console.log("数字: " + num);
-console.log("对象: " + JSON.stringify(obj));
+// function identity<T>(arg: T): T {
+//     return arg;
+// }
+// // 传入字符串，T 推断为 string
+// var str = identity("hello");
+// // 传入数字，T 推断为 number
+// var num = identity(42);
+// // 传入对象，T 推断为对象类型
+// var obj = identity({ name: "TypeScript" });
+// console.log("字符串: " + str);
+// console.log("数字: " + num);
+// console.log("对象: " + JSON.stringify(obj));
+// 泛型推断：TypeScript 会根据调用时传入的参数类型自动推断泛型参数的类型
+// 这使得同一个函数可以处理不同类型的输入，同时保持类型安全
+// 注意事项
+// 初始值的重要性：声明变量时务必提供初始值，以便 TypeScript 正确推断类型
+// 显式声明：当类型复杂或不明确时，建议显式声明类型
+// any 类型的风险：没有初始值的变量会被推断为 any，这会失去类型检查的保护
+// strict 模式：建议启用 strict 模式，避免 any 类型的滥用
+// 最佳实践：充分利用类型推断可以减少代码冗余，但在关键位置（如函数参数、复杂类型）显式声明类型可以提高代码可读性和可维护性
+// 总结
+// 类型推断是 TypeScript 提高开发效率的核心特性
+// 基础类型推断：根据初始值推断变量类型
+// 返回类型推断：根据 return 语句推断函数返回类型
+// 上下文推断：根据使用位置推断类型
+// 最佳通用类型：从多个候选类型中选择最合适的类型
+// 泛型推断：根据传入参数自动推断泛型类型
+// 显式声明：必要时可显式指定类型
+// 建议：善用类型推断可以写出既简洁又类型安全的代码
