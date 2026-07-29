@@ -79,3 +79,9 @@ var FileAccess;
     FileAccess[FileAccess["ReadWrite"] = 6] = "ReadWrite"; // | 是位运算符，表示按位或操作, Read | Write === 2 | 4 === 6
 })(FileAccess || (FileAccess = {}));
 console.log("文件访问: " + FileAccess.ReadWrite); // 输出: 文件访问: 6
+// 总结
+// 数字枚举：默认从 0 开始，可手动赋值
+// 字符串枚举：每个成员必须是字符串字面量
+// 常量枚举：使用 const，编译时内联
+// 异构枚举：混合数字和字符串，不推荐
+// 成员类型：字面量枚举成员可用作类型
