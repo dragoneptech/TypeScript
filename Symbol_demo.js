@@ -1,0 +1,105 @@
+"use strict";
+// TypeScript Symbol
+// Symbol 是 ES6 引入的原始数据类型，表示唯一的标识符
+// 在 TypeScript 中，Symbol 可以用作对象的属性键，确保属性的唯一性
+// 这在需要创建私有属性、避免属性名冲突等场景非常有用
+// Symbol() 创建一个新的唯一 Symbol 值
+// Symbol() 创建的每个 Symbol 值都是唯一的，即使它们有相同的描述
+// var sym1 = Symbol("key")
+// var sym2 = Symbol("key")
+// // sym1 !== sym2 每次创建都唯一
+// console.log(sym1 === sym2) // false
+// console.log(sym1) // Symbol(key)
+// console.log(sym2) // Symbol(key)
+// 用作对象属性键
+// const sym = Symbol("id");
+// const obj = {
+//     [sym]: 123,
+//     name: "Alice"
+// };
+// console.log(obj[sym]); // 123
+// console.log(obj.name); // Alice
+// const obj = {
+//     [Symbol("id")]: 123,
+//     name: "Alice"
+// };
+// console.log(obj[Symbol("id")]); // undefined，因为每次创建的 Symbol 都是唯一的
+// console.log(obj.name); // Alice
+// Symbol.for()
+// 全局注册表 相同 key 相等
+// 常见内置 Symbol
+// Symbol.iterator - 迭代器
+// Symbol.toStringTag - 对象描述
+// Symbol.hasInstance - instanceo
+// 为什么需要 Symbol
+// 在 JavaScript 中，对象的属性名都是字符串，有时可能会发生冲突
+// Symbol 提供了创建唯一标识符的方式，每次调用 Symbol() 都会创建一个新的、唯一的值
+// 这在需要创建私有属性、定义唯一常量、实现迭代器等场景非常有用
+// 概念说明：Symbol 是 JavaScript 的原始数据类型之一，通过 Symbol() 函数创建
+// 每个 Symbol 值都是唯一的，即使描述相同也不相等
+// 创建 Symbol
+// 使用 Symbol() 函数创建唯一的 Symbol 值, 即使描述相同也不相等
+// 创建 Symbol，传入描述字符串（可选）
+// var sym1 = Symbol("description");
+// var sym2 = Symbol("description");
+// 每次创建的 Symbol 都是唯一的，即使描述相同
+// console.log("sym1 === sym2: " + (sym1 === sym2));
+// console.log("sym1: " + sym1.toString());
+// console.log("sym2: " + sym2.toString());
+// 唯一性：这是 Symbol 最重要的特性，每次调用 Symbol() 都会创建一个新值，与任何其他值都不相等
+// Symbol 作为对象属性
+// Symbol 可以用作对象的属性键，创建唯一的属性名
+// 创建 Symbol 作为属性键
+// var sym = Symbol("key");
+// 使用 Symbol 作为对象的属性键
+// var obj = {
+//     name: "Alice",  // 普通字符串属性
+//     [sym]: "secret value"  // Symbol 属性，计算属性名
+// };
+// 访问普通属性
+// console.log("普通属性: " + obj.name);
+// 访问 Symbol 属性
+// console.log("Symbol 属性: " + obj[sym]);
+// Symbol 属性不会出现在 JSON 中
+// console.log("对象: " + JSON.stringify(obj));
+// 隐私：Symbol 属性不会出现在 JSON 序列化中，也不会被 for...in 遍历到，可以用来创建"私有"属性
+// 全局 Symbol 注册表
+// 使用 Symbol.for() 访问全局注册表中的 Symbol，相同 key 会返回相同的 Symbol
+// 使用 Symbol.for 方法创建/获取全局 Symbol
+// 如果 key 不存在，会创建新的；如果已存在，返回已有的
+// var globalSym1 = Symbol.for("global");
+// var globalSym2 = Symbol.for("global");
+// 相同 key 的 Symbol 是相等的
+// console.log("全局 Symbol 相等: " + (globalSym1 === globalSym2));
+// 获取 Symbol 的 key
+// console.log("Symbol key: " + Symbol.keyFor(globalSym1));
+// console.log("Symbol key: " + Symbol.keyFor(globalSym2));
+// 区别：Symbol() 每次创建新的值，Symbol.for() 在全局注册表中查找或创建
+// 内置 Symbol
+// JavaScript 定义了一些内置的 Symbol 值，用于自定义语言行为
+// Symbol.iterator 用于定义对象的默认迭代器
+// var arr = [1, 2, 3];
+// 获取数组的迭代器
+// var iterator = arr[Symbol.iterator]();
+// 使用迭代器遍历
+// console.log("第一个元素: " + iterator.next().value);
+// console.log("第二个元素: " + iterator.next().value);
+// Symbol.toStringTag 自定义对象的 toString() 返回值
+// var obj = {
+//     [Symbol.toStringTag]: "MyObject"
+// };
+// console.log("对象类型: " + obj.toString());
+// 重要：内置 Symbol 用于自定义语言行为，如迭代器、类型转换等，是 JavaScript 高级特性的基础
+// Symbol 类型注解
+// 在 TypeScript 中使用 symbol 类型进行类型注解
+// Symbol 类型注解
+const sym = Symbol("key");
+// 对象的键类型为 symbol，值为 string
+// const obj: { [key: symbol] | [key: string]: string } = {};
+// const obj: any = {};
+const obj = {};
+// 使用 Symbol 作为键
+obj[sym] = "value";
+console.log("Symbol 属性值: " + obj[sym]);
+obj.a = "普通属性值";
+console.log("普通属性值: " + obj.a);
