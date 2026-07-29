@@ -188,7 +188,7 @@
 // var str: string = arr.toString(); 
 // console.log("Returned string is : " + str );  // orange,mango,banana,sugar
 // unshift(): 向数组的开头添加一个或更多元素，并返回新的长度
-var arr = new Array("orange", "mango", "banana", "sugar");
-var length = arr.unshift("water");
-console.log("Returned array is : " + arr); // water,orange,mango,banana,sugar 
-console.log("Length of the array is : " + length); // 5
+// var arr = new Array("orange", "mango", "banana", "sugar"); 
+// var length = arr.unshift("water"); 
+// console.log("Returned array is : " + arr );  // water,orange,mango,banana,sugar 
+// console.log("Length of the array is : " + length ); // 5
