@@ -97,26 +97,44 @@
 // 如果这些需要被调用的方法不存在，那么将引发一个运行时错误
 // 任何拥有这样的正确的"走"和"叫"方法的对象都可被函数接受的这种行为引出了以上表述，这种决定类型的方式因此得名
 
-interface IPoint { 
-    x: number; 
-    y: number; 
-} 
+// interface IPoint { 
+//     x: number; 
+//     y: number; 
+// } 
 
-function addPoints(p1: IPoint, p2: IPoint): IPoint { 
-    const x = p1.x + p2.x 
-    const y = p1.y + p2.y 
-    return {x: x, y: y} 
-} 
+// function addPoints(p1: IPoint, p2: IPoint): IPoint { 
+//     const x = p1.x + p2.x 
+//     const y = p1.y + p2.y 
+//     return {x: x, y: y} 
+// } 
  
-// 正确
+// // 正确
+// const newPoint = addPoints({x: 3, y: 4},{x: 5, y: 1});
+// console.log(newPoint) // { x: 8, y: 5 }
+ 
+// // 错误 
+// // const newPoint2 = addPoints({x: 1}, {x: 4,y: 3});
+
+// 以上代码中，采用了非鸭子类型的方式，要求传入的参数必须是 IPoint 类型的实例
+// 但是在实际开发中，我们可能会遇到这样的情况：
+// 我们希望传入的参数只要有 x 和 y 属性即可，而不要求它们是 IPoint 类型的实例
+// 这时我们就可以使用鸭子类型来实现
+
+
+// 鸭子类型的实现方式是使用 any 类型来定义参数类型
+function addPoints(p1: any, p2: any): any {
+    const x = p1.x + p2.x;
+    const y = p1.y + p2.y;
+    return { x: x, y: y };
+}
 const newPoint = addPoints({x: 3, y: 4},{x: 5, y: 1});
 console.log(newPoint) // { x: 8, y: 5 }
- 
-// 错误 
-// const newPoint2 = addPoints({x: 1}, {x: 4,y: 3});
 
+const newPoint2 = addPoints({x: 1}, {x: 4,y: 3});
+console.log(newPoint2) // { x: 5, y: NaN }
 
-
+const newPoint3 = addPoints({x: 1, y: 2, z: 3}, {x: 4,y: 3});
+console.log(newPoint3) // { x: 5, y: 5 }
 
 
 
