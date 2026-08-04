@@ -36,10 +36,17 @@
 //     Object.seal(constructor);         // 禁止添加新属性
 //     Object.seal(constructor.prototype);
 // }
-// function sealed<T extends abstract new (...args: any[]) => any>(constructor: T, context: ClassDecoratorContext) {
-//     Object.seal(constructor);
-//     Object.seal(constructor.prototype);
-// }
+function sealed<T extends abstract new (...args: any[]) => any>(constructor: T, context: ClassDecoratorContext) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+// <T extends abstract new (...args: any[]) => any>: T 必须是一个可以 new 的类构造函数
+// T 换成 Function 也可以，但是太宽泛
+// 但是装饰器只能装饰类, 使用泛型更精确
+// new (...args: any[]) => any  // 构造函数类型（签名）
+// abstract new (...args: any[]) => any  // 抽象构造函数类型（签名）
+// abstract 表示类装饰器既可以作用于具体的类，也可以作用于抽象类
+// 如果不加 abstract，则只能作用于具体的类，不能作用于抽象类
 
 // 方法装饰器：可用于日志记录、权限校验等
 // function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -74,28 +81,26 @@
 // }
 
 
-
-
 // Method 3: Generic decorator factory 
-// function log<This, Args extends unknown[], Return>(originalMethod: (this: This, ...args: Args) => Return, context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Return>) {
-//     return function (this: This, ...args: Args): Return {
-//         console.log(`Calling ${String(context.name)} with args:`, args);
-//         const result = originalMethod.apply(this, args);
-//         console.log(`${String(context.name)} returned:`, result);
-//         return result;
-//     }
-// }
+function log<This, Args extends unknown[], Return>(originalMethod: (this: This, ...args: Args) => Return, context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Return>) {
+    return function (this: This, ...args: Args): Return {
+        console.log(`Calling ${String(context.name)} with args:`, args);
+        const result = originalMethod.apply(this, args);
+        console.log(`${String(context.name)} returned:`, result);
+        return result;
+    }
+}
 
-// @sealed
-// class Calculator {
-//     @log
-//     add(a: number, b: number): number {
-//         return a + b;
-//     }
-// }
+@sealed
+class Calculator {
+    @log
+    add(a: number, b: number): number {
+        return a + b;
+    }
+}
 
-// const calc = new Calculator();
-// calc.add(1, 2);
+const calc = new Calculator();
+calc.add(1, 2);
 // 输出：Calling add with args: [ 1, 2 ]
 // 输出：add returned: 3
 
@@ -198,7 +203,7 @@
 
 // 提示：PropertyDescriptor 包含可枚举（enumerable）、可配置（configurable）、可写（writable）和值（value）等属性，可以根据需要修改
 
-// 访问器装饰器
+// 访问器装饰器 Accessor Decorators
 // 访问器装饰器应用于类的 getter 和 setter 方法
 // 与方法装饰器类似，访问器装饰器也可以修改属性描述符
 
@@ -495,5 +500,52 @@
 // 属性装饰器：为属性添加元数据
 // 参数装饰器：标记或验证方法参数
 // 装饰器工厂：通过参数化实现更灵活的装饰器配置
+
+
+
+
+// TypeScript 最新版本的装饰器变化
+// 新标准装饰器（Stage 3 Decorators）
+// TypeScript 5.0 开始支持：
+// ECMAScript 标准装饰器
+// 默认推荐
+// 特点：
+// 不需要 experimentalDecorators
+// 使用新的上下文对象 context
+// 不支持传统参数装饰器
+
+// 旧版实验性装饰器（Legacy Decorators）
+// 依赖 experimentalDecorators 编译选项
+// 特点：
+// 支持类、方法、属性、访问器、参数装饰器
+// Angular/NestJS 大量使用
+// 使用 (target, propertyKey, descriptor) 参数形式
+
+// TypeScript 新标准装饰器（TS 5+/7）
+// 与 ECMAScript 标准装饰器类似，但有更完善的类型支持和更好的开发体验
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
