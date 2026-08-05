@@ -194,6 +194,7 @@
 //     isLoading: boolean;
 //     // 时间戳
 //     timestamp: number;
+//     retry(message: string): boolean;
 // }
 
 // 将函数类型转换为 () => void
@@ -211,10 +212,15 @@
 //     data: "hello",
 //     error: "",
 //     isLoading: false,
-//     timestamp: Date.now()
+//     timestamp: Date.now(),
+//     retry: () => {
+//         console.log("Retrying...");
+//         // return true;
+//     }
 // };
 
 // console.log("响应: " + JSON.stringify(response));
+// response.retry(); // 调用重试函数
 
 // 应用场景：条件映射常用于处理 API 响应、清理配置对象等需要根据类型做不同处理的场景
 
