@@ -178,33 +178,33 @@
 // 这种组合可以在属性不存在时提供默认值，使代码更加健壮
 
 // 定义一个不完整的用户对象
-interface User {
-    name: string;
-    address?: {
-        city?: string;
-        country?: {
-            name: string;
-        };
-    };
-}
+// interface User {
+//     name: string;
+//     address?: {
+//         city?: string;
+//         country?: {
+//             name: string;
+//         };
+//     };
+// }
 
-const user: User = {
-    name: "Alice"
-    // address 不存在
-};
+// const user: User = {
+//     name: "Alice"
+//     // address 不存在
+// };
 
 // 可选链 + 空值合并：当 city 为 null 或 undefined 时使用默认值
-const city = user?.address?.city ?? "未知城市";
+// const city = user?.address?.city ?? "未知城市";
 // const city = user?.address?.city || "未知城市";
 
-console.log("城市: " + city);
+// console.log("城市: " + city);
 
 // 对比：传统方式的复杂写法
-const country = user && user.address && user.address.country
-    ? user.address.country
-    : "未知国家";
+// const country = user && user.address && user.address.country
+//     ? user.address.country
+//     : "未知国家";
 
-console.log("国家: " + country);
+// console.log("国家: " + country);
 
 // 说明：?? 只在值为 null 或 undefined 时使用默认值
 // 而 || 会在值为 falsy（0、""、false）时也使用默认值。在处理数字或字符串时，应优先使用 ??
@@ -230,5 +230,25 @@ console.log("国家: " + country);
 // 结合空值合并运算符，可以写出既安全又简洁的代码
 
 
+// 截至 TypeScript 7.x，仍然不支持可选链赋值（Optional Chaining Assignment）
+// 这个限制来自 JavaScript ECMAScript 规范
 
+// 当前推荐替代方案
+// 方法1：if 判断（最清晰）
+// let user = {
+//     name: "Alice"
+//     // address 不存在
+// };
+// if (user) {
+//     user.name="Bob";
+// }
 
+// console.log("用户: " + JSON.stringify(user));
+
+// 方法2：逻辑与 &&
+let user: { name:string } | undefined;
+
+user = { name: "Alice" };
+user && (user.name="Bob");
+
+console.log("用户: " + JSON.stringify(user));
