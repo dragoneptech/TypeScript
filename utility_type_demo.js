@@ -190,15 +190,43 @@
 // ReturnType 获取函数类型 T 的返回类型
 // 常用于从已存在的函数中提取返回类型
 // 定义获取用户的函数
-function getUser() {
-    return { name: "Alice", age: 25 };
-}
+// function getUser() {
+//     return { name: "Alice", age: 25 };
+// }
 // 定义获取配置的函数
-function getConfig() {
-    return { host: "localhost", port: 8080 };
-}
+// function getConfig() {
+//     return { host: "localhost", port: 8080 };
+// }
+// ReturnType：获取函数的返回类型
+// 提取 getUser 函数的返回类型
+// type UserType = ReturnType<typeof getUser>;
+// 提取 getConfig 函数的返回类型
+// type ConfigType = ReturnType<typeof getConfig>;
 // 使用提取的返回类型创建对象
-const user = { name: "Bob", age: 30 };
-const config = { host: "example.com", port: 3000 };
-console.log("用户: " + JSON.stringify(user));
-console.log("配置: " + JSON.stringify(config));
+// const user: UserType = { name: "Bob", age: 30 };
+// const config: ConfigType = { host: "example.com", port: 3000 };
+// console.log("用户: " + JSON.stringify(user));
+// console.log("配置: " + JSON.stringify(config));
+// 提示：ReturnType<T> 中的 T 必须是函数类型
+// 可以使用 typeof 获取函数的类型
+// 注意事项
+// 工具类型都是泛型：使用时应传入具体的类型参数
+// 只读和可选：工具类型可以组合使用，如 Partial<Readonly<T>>
+// 内置类型：这些工具类型都是 TypeScript 内置的，无需安装
+// 自定义工具类型：可以基于映射类型和条件类型创建自定义工具类型 (请参阅映射类型和条件类型的相关文档)
+// 进阶：如果内置工具类型不满足需求，可以参考 TypeScript 源码自行实现自定义工具类型
+// 总结
+// TypeScript 工具类型是类型系统的重要组成部分
+// 内置工具类型提供了丰富的类型操作能力
+// 涵盖了属性可选性、必填性、只读性、属性选择、属性排除、对象构造、类型过滤、
+// 非空类型提取以及函数返回类型获取等方面
+// Partial<T>：将所有属性变为可选
+// Required<T>：将所有属性变为必填
+// Readonly<T>：将所有属性变为只读
+// Pick<T,K>：选择指定属性
+// Omit<T,K>：排除指定属性
+// Record<K,T>：构造对象类型
+// Exclude/Extract：类型过滤
+// NonNullable：排除 null 和 undefined
+// ReturnType：获取函数返回类型
+// 最佳实践：善用工具类型可以使代码更加类型安全，减少重复的类型定义，提高代码可维护性
